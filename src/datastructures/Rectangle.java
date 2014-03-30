@@ -62,7 +62,7 @@ public class Rectangle implements IRectangleCoordinates {
 	 * @return
 	 */
 	public boolean fitsIn(IStack stack) {
-		return length>stack.getLength() && width>stack.getWidth();
+		return length>=stack.getLength() && width>=stack.getWidth();
 	}
 	
 	/**
