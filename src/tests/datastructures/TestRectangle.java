@@ -67,6 +67,7 @@ public class TestRectangle {
 	
 	/**
 	 * Check that some rectangles do not intersects.
+	 * @see /analysis/tests/datastructures/rectangle/noIntersection.png
 	 */
 	@Test
 	public void testNoIntersects() {
@@ -82,6 +83,7 @@ public class TestRectangle {
 	
 	/**
 	 * Check that some rectangles do intersects.
+	 * @see /analysis/tests/datastructures/rectangle/intersection.png
 	 */
 	@Test
 	public void testIntersects() {

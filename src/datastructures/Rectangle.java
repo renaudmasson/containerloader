@@ -1,6 +1,7 @@
 package datastructures;
 
 import java.security.InvalidParameterException;
+import java.util.Vector;
 
 public class Rectangle implements IRectangleCoordinates {
 
@@ -87,6 +88,11 @@ public class Rectangle implements IRectangleCoordinates {
 				&& y1 <= other.getY1()
 				&& x2 >= other.getX2()
 				&& y2 >= other.getY2();
+	}
+	
+	public Vector<Rectangle> createNewRectangles(IRectangleCoordinates cause) {
+		Vector<Rectangle> rectangles = new Vector<Rectangle>();
+		return rectangles;
 	}
 
 	@Override
