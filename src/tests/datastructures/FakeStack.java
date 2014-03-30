@@ -100,6 +100,42 @@ public class FakeStack implements IStack {
 		return y2;
 	}
 
+	@Override
+	public void setX1(long x1) {
+		// TODO Auto-generated method stub
+		this.x1 = x1;
+	}
+
+	@Override
+	public void setX2(long x2) {
+		// TODO Auto-generated method stub
+		this.x2 = x2;
+	}
+
+	@Override
+	public void setY1(long y1) {
+		// TODO Auto-generated method stub
+		this.y1 = y1;
+	}
+
+	@Override
+	public void setY2(long y2) {
+		// TODO Auto-generated method stub
+		this.y2 = y2;
+	}
+
+	@Override
+	public void setAssigned(boolean assigned) {
+		// TODO Auto-generated method stub
+		this.isAssigned = assigned;
+	}
+
+	@Override
+	public void setContainerId(long containerId) {
+		// TODO Auto-generated method stub
+		this.containerId = containerId;
+	}
+
 
 
 

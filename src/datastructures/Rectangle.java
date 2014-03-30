@@ -70,6 +70,11 @@ public class Rectangle implements IRectangleCoordinates {
 		return length>=stack.getLength() && width>=stack.getWidth();
 	}
 	
+	@Override
+	public int hashCode() {
+		return (int) (1000000000*x1 + 1000000*y1 + 1000*x2 + y2);
+	}
+	
 	/**
 	 * compute if the coordinates intersect the rectangle.
 	 * @param other the coordinates
@@ -208,6 +213,26 @@ public class Rectangle implements IRectangleCoordinates {
 	 */
 	public long getWidth() {
 		return width;
+	}
+
+	@Override
+	public void setX1(long x1) {
+		this.x1 = x1;
+	}
+
+	@Override
+	public void setX2(long x2) {
+		this.x2 = x2;
+	}
+
+	@Override
+	public void setY1(long y1) {
+		this.y1 = y1;
+	}
+
+	@Override
+	public void setY2(long y2) {
+		this.y2 = y2;
 	}
 	
 	

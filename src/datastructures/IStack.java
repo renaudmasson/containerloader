@@ -34,6 +34,18 @@ public interface IStack extends IRectangleCoordinates{
 	public boolean isAssigned();
 	
 	/**
+	 * set the value of the assigned variable.
+	 * @param assigned
+	 */
+	public void setAssigned(boolean assigned);
+	
+	/**
+	 * set the value of the id of the container in which the stack is added.
+	 * @param containerId
+	 */
+	public void setContainerId(long containerId);
+	
+	/**
 	 * @return the id of the container to which this Stack is assigned.
 	 */
 	public long getContainerId();

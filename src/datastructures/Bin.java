@@ -1,5 +1,7 @@
 package datastructures;
 
+import java.util.HashSet;
+import java.util.PriorityQueue;
 import java.util.Vector;
 
 public class Bin {
@@ -7,37 +9,47 @@ public class Bin {
 	/**
 	 * The identifier of the bin type.
 	 */
-	private String binType;
+	protected String binType;
 	
 	/**
 	 * The length of the bin.
 	 */
-	private long length;
+	protected long length;
 	
 	/**
 	 * The width of the bin.
 	 */
-	private long width;
+	protected long width;
 	
 	/**
 	 * The height of the bin.
 	 */
-	private long height;
+	protected long height;
 	
 	/**
 	 * The maximum weight of the bin.
 	 */
-	private long maxWeight;
+	protected long maxWeight;
 	
 	/**
 	 * The current weight of the items in the bin.
 	 */
-	private long currentWeight;
+	protected long currentWeight;
+	
+	/**
+	 * the id of the bin.
+	 */
+	protected long binId;
+	
+	/**
+	 * The maximum value.
+	 */
+	protected long maxX;
 	
 	/**
 	 * All the available spaces in the bin.
 	 */
-	private Vector<Rectangle> availableSpace;
+	protected PriorityQueue<Rectangle> availableSpace;
 
 	/**
 	 * Constructor.
@@ -56,6 +68,9 @@ public class Bin {
 		this.height = height;
 		this.maxWeight = maxWeight;
 		this.currentWeight = 0;
+		availableSpace = new PriorityQueue<Rectangle>(1, new RectangleComparator());
+		availableSpace.add(new Rectangle(0, 0, length, width));
+		maxX = 0;
 	}
 	
 	/**
@@ -64,8 +79,57 @@ public class Bin {
 	 * @return true if the stack fits in the container, false otherwise.
 	 */
 	public boolean fitsIn(IStack toAdd) {
-		//TODO code the function.
+		if(toAdd.getHeight() > height) {
+			return false;
+		}
+		if(toAdd.getWeight() + currentWeight > maxWeight) {
+			return false;
+		}
+		for(Rectangle rect: availableSpace) {
+			if(rect.fitsIn(toAdd)) {
+				return true;
+			}
+		}
 		return false;
+	}
+	
+	/**
+	 * Adds a stack to the bin and update the available space.
+	 * @param toAdd
+	 */
+	public void add(IStack toAdd) {
+		Rectangle usedRectangle = null;
+		for(Rectangle rect: availableSpace) {
+			if(rect.fitsIn(toAdd)) {
+				usedRectangle = rect;
+				toAdd.setX1(rect.getX1());
+				toAdd.setX2(rect.getX1() + toAdd.getLength());
+				if(rect.getX1() + toAdd.getLength() > maxX) {
+					maxX = rect.getX1() + toAdd.getLength();
+				}
+				toAdd.setY1(rect.getY1());
+				toAdd.setY2(rect.getY1() + toAdd.getWidth());
+				toAdd.setContainerId(binId);
+				toAdd.setAssigned(true);
+				break;
+			}
+		}
+		recomputeAvailableSpaces(toAdd);
+		currentWeight += toAdd.getWeight();
+	}
+	
+	private void recomputeAvailableSpaces(IStack toAdd) {
+		Vector<Rectangle> toRemove = new Vector<Rectangle>();
+		HashSet<Rectangle> rectanglesToAdd = new HashSet<Rectangle>();
+		for(Rectangle rect: availableSpace) {
+			if(rect.intersects(toAdd)) {
+				Vector<Rectangle> result = rect.createNewRectangles(toAdd);
+				rectanglesToAdd.addAll(result);
+				toRemove.add(rect);
+			}
+		}
+		availableSpace.removeAll(toRemove);
+		availableSpace.addAll(rectanglesToAdd);
 	}
 	
 	/**
@@ -73,7 +137,7 @@ public class Bin {
 	 */
 	public long maxX() {
 		//TODO code the function.
-		return length;
+		return maxX;
 	}
 
 	
