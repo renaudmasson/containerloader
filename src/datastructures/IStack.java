@@ -39,6 +39,11 @@ public interface IStack {
 	public long getContainerId();
 	
 	/**
+	 * @return the id of the stack.
+	 */
+	public long getStackId();
+	
+	/**
 	 * @return the X origin in the container
 	 */
 	public long getXOrigin();
