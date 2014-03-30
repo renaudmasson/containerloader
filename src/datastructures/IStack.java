@@ -5,7 +5,7 @@ package datastructures;
  * @author renaud
  *
  */
-public interface IStack {
+public interface IStack extends IRectangleCoordinates{
 	
 	/**
 	 * @return the stack length.
@@ -42,25 +42,5 @@ public interface IStack {
 	 * @return the id of the stack.
 	 */
 	public long getStackId();
-	
-	/**
-	 * @return the X origin in the container
-	 */
-	public long getXOrigin();
-	
-	/**
-	 * @return the Y origin in the container
-	 */
-	public long getYOrigin();
-	
-	/**
-	 * @return the X destination in the container
-	 */
-	public long getXDestination();
-	
-	/**
-	 * @return the Y destination in the container
-	 */
-	public long getYDestination();
 
 }

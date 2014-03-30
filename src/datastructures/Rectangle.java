@@ -1,6 +1,8 @@
 package datastructures;
 
-public class Rectangle {
+import java.security.InvalidParameterException;
+
+public class Rectangle implements IRectangleCoordinates {
 
 	
 	/**
@@ -38,10 +40,14 @@ public class Rectangle {
 	 * @param x2 end coordinate.
 	 * @param y2 end coordinate.
 	 */
-	public Rectangle(long x1, long y1, long x2, long y2) {
+	public Rectangle(long x1, long y1, long x2, long y2) throws InvalidParameterException{
 		super();
-		assert(x2 > x1);
-		assert(y2 > y1);
+		if(x2 <= x1) {
+			throw new InvalidParameterException("x2 must be greater than x1");
+		}
+		if(y2 <= y1) {
+			throw new InvalidParameterException("y2 must be greater than y1");
+		}
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
@@ -60,12 +66,63 @@ public class Rectangle {
 	}
 	
 	/**
-	 * compute if the stack intersect the rectangle.
-	 * @param stack
-	 * @return true if the stack intersect the rectangle.
+	 * compute if the coordinates intersect the rectangle.
+	 * @param other the coordinates
+	 * @return true if the coordinates intersect the rectangle, false otherwise.
 	 */
-	public boolean intersect(IStack stack) {
-		return true;
+	public boolean intersects(IRectangleCoordinates other) {
+		return !(x2 <= other.getX1() 
+				  || x1 >= other.getX2()
+				  || y2 <= other.getY1()
+				  || y1 >= other.getY2());
+	}
+	
+	/**
+	 * compute if a rectangle completely contains some coordinates.
+	 * @param other the coordinates
+	 * @return true if the coordinates are contained in the rectangle, false otherwise.
+	 */
+	public boolean contains(IRectangleCoordinates other) {
+		return x1 <= other.getX1()
+				&& y1 <= other.getY1()
+				&& x2 >= other.getX2()
+				&& y2 >= other.getY2();
+	}
+
+	@Override
+	public long getX1() {
+		return x1;
+	}
+
+	@Override
+	public long getY1() {
+		return y1;
+	}
+
+	@Override
+	public long getX2() {
+		return x2;
+	}
+
+	@Override
+	public long getY2() {
+		return y2;
+	}
+
+	/**
+	 * Simple getter.
+	 * @return the length of the rectangle.
+	 */
+	public long getLength() {
+		return length;
+	}
+
+	/**
+	 * Simple getter.
+	 * @return the width of the rectangle.
+	 */
+	public long getWidth() {
+		return width;
 	}
 	
 	
