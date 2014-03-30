@@ -90,6 +90,18 @@ public class Rectangle implements IRectangleCoordinates {
 				&& y2 >= other.getY2();
 	}
 	
+	/**
+	 * Checks if two rectangles are equals.
+	 * @param other the other rectangle
+	 * @return true if the rectangles are equals, false otherwise.
+	 */
+	public boolean equals(Rectangle other) {
+		return x1 == other.getX1()
+				&& x2 == other.getX2()
+				&& y1 == other.getY1()
+				&& y2 == other.getY2();
+	}
+	
 	public Vector<Rectangle> createNewRectangles(IRectangleCoordinates cause) {
 		Vector<Rectangle> rectangles = new Vector<Rectangle>();
 		return rectangles;

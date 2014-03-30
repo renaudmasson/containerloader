@@ -25,6 +25,7 @@ public interface IRectangleCoordinates {
 	 * @return the y destination of the rectangle.
 	 */
 	public long getY2();
+
 	
 
 

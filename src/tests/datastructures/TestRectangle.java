@@ -3,6 +3,7 @@ package tests.datastructures;
 import static org.junit.Assert.*;
 
 import java.security.InvalidParameterException;
+import java.util.Vector;
 
 import org.junit.After;
 import org.junit.Before;
@@ -128,6 +129,72 @@ public class TestRectangle {
 		
 		for(Rectangle rect: rectanglesContained) {
 			assertTrue(baseRectangle.contains(rect));
+		}
+	}
+	
+	/**
+	 * Test that the breaking of a rectangle behave correctly.
+	 */
+	@Test
+	public void testCreateNewRecttangles1() {
+		Rectangle rectBreaker = new Rectangle(0, 0, 15, 15);
+		Rectangle rect1 = new Rectangle(10, 15, 20, 30);
+		Rectangle rect2 = new Rectangle(15, 10, 20, 30);
+		Vector<Rectangle> vecRectangles = new Vector<Rectangle>();
+		vecRectangles.add(rect1);
+		vecRectangles.add(rect2);
+		Vector<Rectangle> results = baseRectangle.createNewRectangles(rectBreaker);
+		for(Rectangle rect: vecRectangles) {
+			assertTrue(results.contains(rect));
+		}
+		for(Rectangle rect: results) {
+			assertTrue(vecRectangles.contains(rect));
+		}
+	}
+	
+	/**
+	 * Test that the breaking of a rectangle behave correctly.
+	 */
+	@Test
+	public void testCreateNewRecttangles2() {
+		Rectangle rectBreaker = new Rectangle(13, 20, 16, 40);
+		Rectangle rect1 = new Rectangle(10, 10, 20, 20);
+		Rectangle rect2 = new Rectangle(10, 10, 13, 30);
+		Rectangle rect3 = new Rectangle(16, 10, 20, 30);
+		Vector<Rectangle> vecRectangles = new Vector<Rectangle>();
+		vecRectangles.add(rect1);
+		vecRectangles.add(rect2);
+		vecRectangles.add(rect3);
+		Vector<Rectangle> results = baseRectangle.createNewRectangles(rectBreaker);
+		for(Rectangle rect: vecRectangles) {
+			assertTrue(results.contains(rect));
+		}
+		for(Rectangle rect: results) {
+			assertTrue(vecRectangles.contains(rect));
+		}
+	}
+	
+	/**
+	 * Test that the breaking of a rectangle behave correctly.
+	 */
+	@Test
+	public void testCreateNewRecttangles3() {
+		Rectangle rectBreaker = new Rectangle(12, 12, 16, 16);
+		Rectangle rect1 = new Rectangle(10, 10, 20, 12);
+		Rectangle rect2 = new Rectangle(10, 16, 20, 30);
+		Rectangle rect3 = new Rectangle(10, 10, 12, 30);
+		Rectangle rect4 = new Rectangle(16, 10, 20, 30);
+		Vector<Rectangle> vecRectangles = new Vector<Rectangle>();
+		vecRectangles.add(rect1);
+		vecRectangles.add(rect2);
+		vecRectangles.add(rect3);
+		vecRectangles.add(rect4);
+		Vector<Rectangle> results = baseRectangle.createNewRectangles(rectBreaker);
+		for(Rectangle rect: vecRectangles) {
+			assertTrue(results.contains(rect));
+		}
+		for(Rectangle rect: results) {
+			assertTrue(vecRectangles.contains(rect));
 		}
 	}
 
