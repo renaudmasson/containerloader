@@ -3,6 +3,10 @@ package datastructures;
 import java.security.InvalidParameterException;
 import java.util.Vector;
 
+import org.w3c.dom.css.Rect;
+
+import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
+
 public class Rectangle implements IRectangleCoordinates {
 
 	
@@ -95,16 +99,79 @@ public class Rectangle implements IRectangleCoordinates {
 	 * @param other the other rectangle
 	 * @return true if the rectangles are equals, false otherwise.
 	 */
-	public boolean equals(Rectangle other) {
-		return x1 == other.getX1()
-				&& x2 == other.getX2()
-				&& y1 == other.getY1()
-				&& y2 == other.getY2();
+	public boolean equals(Object other) {
+		if (other instanceof IRectangleCoordinates) {
+			IRectangleCoordinates otherRect = (IRectangleCoordinates) other;
+			return x1 == otherRect.getX1()
+					&& x2 == otherRect.getX2()
+					&& y1 == otherRect.getY1()
+					&& y2 == otherRect.getY2();
+		}
+		else {
+			return false;
+		}
+		
 	}
 	
 	public Vector<Rectangle> createNewRectangles(IRectangleCoordinates cause) {
 		Vector<Rectangle> rectangles = new Vector<Rectangle>();
+		long ix1 = findXFirstIntersectionPoint(cause);
+		long ix2 = findXLastIntersectionPoint(cause);
+		long iy1 = findYFirstIntersectionPoint(cause);
+		long iy2 = findYLastIntersectionPoint(cause);
+		if(ix1 > x1) {
+			rectangles.add(new Rectangle(x1, y1, ix1, y2));
+		}
+		if(ix2 < x2) {
+			rectangles.add(new Rectangle(ix2, y1, x2, y2));
+		}
+		if(iy1 > y1) {
+			rectangles.add(new Rectangle(x1, y1, x2, iy1));
+		}
+		if(iy2 < y2) {
+			rectangles.add(new Rectangle(x1, iy2, x2, y2));
+		}
 		return rectangles;
+	}
+	
+	/**
+	 * Finds the first intersection point of the two rectangle along the y axis.
+	 * @param cause the other rectangle.
+	 * @return the first intersection point of the two rectangle along the y axis.
+	 */
+	protected long findYFirstIntersectionPoint(IRectangleCoordinates cause) {
+		return Math.max(y1, cause.getY1());
+	}
+	
+	/**
+	 * Finds the last intersection point of the two rectangle along the y axis.
+	 * @param cause the other rectangle.
+	 * @return the last intersection point of the two rectangle along the y axis.
+	 */
+	protected long findYLastIntersectionPoint(IRectangleCoordinates cause) {
+		return Math.min(y2, cause.getY2());
+	}
+	
+	/**
+	 * Finds the first intersection point of the two rectangle along the x axis.
+	 * @param cause the other rectangle.
+	 * @return the first intersection point of the two rectangle along the x axis.
+	 */
+	protected long findXFirstIntersectionPoint(IRectangleCoordinates cause) {
+		return Math.max(x1, cause.getX1());
+	}
+	
+	/**
+	 * Finds the last intersection point of the two rectangle along the x axis.
+	 * @param cause the other rectangle.
+	 * @return the last intersection point of the two rectangle along the x axis.
+	 */
+	protected long findXLastIntersectionPoint(IRectangleCoordinates cause) {
+		return Math.min(x2, cause.getX2());
+	}
+	
+	public String toString() {
+		return x1 + ", " + x2 + ", " + y1 + ", " + y2;
 	}
 
 	@Override

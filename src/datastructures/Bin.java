@@ -1,5 +1,7 @@
 package datastructures;
 
+import java.util.Vector;
+
 public class Bin {
 
 	/**
@@ -31,6 +33,11 @@ public class Bin {
 	 * The current weight of the items in the bin.
 	 */
 	private long currentWeight;
+	
+	/**
+	 * All the available spaces in the bin.
+	 */
+	private Vector<Rectangle> availableSpace;
 
 	/**
 	 * Constructor.
